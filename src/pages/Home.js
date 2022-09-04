@@ -14,6 +14,7 @@ import ErrorRequest from '../components/ErrorRequest'
 import {API_URL, API_TOKEN} from "@env"
 
 const uri = API_URL + 'forecast?lat=-6.200000&lon=106.816666&units=metric&appid=' + API_TOKEN
+
 /**
  * testing error code
  * const uri = API_URL + 'forecast?lat=-6.200000&lon=106.816666&units=metric&appid=' + '34b92485cb4a24adba23bf98fb44eddaX'

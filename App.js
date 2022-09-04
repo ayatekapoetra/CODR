@@ -47,16 +47,7 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {/* <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? bgColor.black : bgColor.lightBlue,
-          }}>
-        </View>
-      </ScrollView> */}
-            <Home backgroundStyle={backgroundStyle} isDarkMode={isDarkMode} bgColor={bgColor}/>
+        <Home backgroundStyle={backgroundStyle} isDarkMode={isDarkMode} bgColor={bgColor}/>
     </SafeAreaView>
   );
 };

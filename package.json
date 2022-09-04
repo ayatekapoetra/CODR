@@ -18,6 +18,7 @@
     "react-native": "0.69.5",
     "react-native-dotenv": "^3.3.1",
     "react-native-geolocation-service": "^5.3.0",
+    "react-native-location": "^2.5.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",

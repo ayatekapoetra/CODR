@@ -4,7 +4,8 @@ import {
   Text, 
   View, 
   Dimensions,
-  Image
+  Image,
+  Linking
 } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
 import React, { useCallback, useState, useEffect } from 'react'
@@ -13,8 +14,6 @@ import Loading from '../components/Loading'
 import ErrorRequest from '../components/ErrorRequest'
 
 import {API_URL, API_TOKEN} from "@env"
-
-const uri = API_URL + 'forecast?lat=-6.200000&lon=106.816666&units=metric&appid=' + API_TOKEN
 
 /**
  * testing error code
@@ -28,8 +27,8 @@ const Home = ({backgroundStyle, isDarkMode, bgColor}) => {
   const [data, setData] = useState(null)
   const [nextWeather, setNextWeather] = useState([])
 
-  const GET_DATA_FORECAST = async () => {
-    let response = await fetch(uri);
+  const GET_DATA_FORECAST = async (lat, lon) => {
+    let response = await fetch(`${API_URL}lat=${lat || -6.200000}&lon=${lon || 106.816666}&units=metric&appid=${API_TOKEN}`);
     let json = await response.json();
     setData(json)
 
@@ -40,16 +39,31 @@ const Home = ({backgroundStyle, isDarkMode, bgColor}) => {
     setNextWeather(arrayUniqueByKey.slice(1, 4))
   }
 
+  const getLocationUser = async () => {
+    const status = await Geolocation.requestAuthorization('whenInUse');
+    console.log(status);
+    if (status === 'granted') {
+      await Geolocation.getCurrentPosition(
+        position => {
+          console.log('position ::', position);
+          const {latitude, longitude} = position.coords;
+          GET_DATA_FORECAST(latitude, longitude)
+        },
+        error => {
+           console.log(error);
+        },
+      );
+      return true;
+    }
+
+  };
+
   useEffect(() => {
-    GET_DATA_FORECAST()
-    Geolocation.getCurrentPosition((position) => console.log(position),
-      (error) => console.log(error.code, error.message), { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-  );
-    return () => GET_DATA_FORECAST()
+    getLocationUser()
+    return () => getLocationUser()
   }, [])
 
   
-  // console.log(data);
   return (
     <View>
       {

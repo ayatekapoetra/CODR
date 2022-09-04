@@ -31,7 +31,7 @@ import Home from './src/pages/Home'
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
-
+  console.log(isDarkMode);
   const bgColor = {
     ...Colors, 
     lightBlue: '#D9E6F1',

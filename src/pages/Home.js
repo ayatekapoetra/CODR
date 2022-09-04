@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image
 } from 'react-native'
+import Geolocation from 'react-native-geolocation-service';
 import React, { useCallback, useState, useEffect } from 'react'
 import moment from 'moment'
 import Loading from '../components/Loading'
@@ -41,11 +42,14 @@ const Home = ({backgroundStyle, isDarkMode, bgColor}) => {
 
   useEffect(() => {
     GET_DATA_FORECAST()
+    Geolocation.getCurrentPosition((position) => console.log(position),
+      (error) => console.log(error.code, error.message), { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+  );
     return () => GET_DATA_FORECAST()
   }, [])
 
   
-  console.log(data);
+  // console.log(data);
   return (
     <View>
       {
